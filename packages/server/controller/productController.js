@@ -27,71 +27,61 @@ class productController {
   }
 
   static async getAllProduct(req, res) {
-    const page = 1;
-
     try {
-      const { orderby, order, filter, category } = req.query;
-      let offset = req.query.offset;
-      offset = parseInt(offset);
-      let products;
-      if (category) {
-        products = await Product.findAll({
-          include: [
-            {
-              model: Category,
-              attributes: ["category"],
-              where: {
-                category: { [Op.startsWith]: [category] },
-              },
-            },
-            {
-              model: Product_Stock,
-            },
-            {
-              model: Product_Description,
-            },
-          ],
-          attributes: { exclude: ["updatedAt", "createdAt"] },
-          order: order && orderby ? [[orderby, order]] : [],
-          where: {
-            name: {
-              [Op.substring]: [filter],
-            },
-          },
-          page,
-          offset: offset,
-          limit: 9,
-        });
-      } else {
-        products = await Product.findAll({
-          include: [
-            {
-              model: Category,
-              attributes: ["category"],
-            },
-            {
-              model: Product_Stock,
-            },
-            {
-              model: Product_Description,
-            },
-          ],
-          attributes: { exclude: ["updatedAt", "createdAt"] },
-          order: order && orderby ? [[orderby, order]] : [],
-          where: {
-            name: {
-              [Op.substring]: [filter],
-            },
-          },
-          page,
-          offset,
-          limit: 9,
-        });
+      //==================
+      let category = [];
+      const allCategory = await Category.findAll({
+        attributes: ["category"],
+      });
+
+      for (let i = 0; i < allCategory.length; i++) {
+        category.push(allCategory[i].category);
+      }
+      console.log("AAAAAAAA");
+      console.log(category);
+
+      if (req.query.category) {
+        category = req.query?.category;
       }
 
-      res
-        .status(200)
-        .json({ status: "success", result: { products, page, offset } });
+      const { orderby, order, filter } = req.query;
+      let offset = req.query.offset;
+      offset = parseInt(offset);
+
+      //==================
+
+      const products = await Product.findAll({
+        include: [
+          {
+            model: Category,
+            attributes: ["category"],
+            where: {
+              category: { [Op.or]: [category] },
+            },
+          },
+          {
+            model: Product_Stock,
+          },
+          {
+            model: Product_Description,
+          },
+        ],
+        attributes: { exclude: ["updatedAt", "createdAt"] },
+        order: order && orderby ? [[orderby, order]] : [],
+        where: {
+          name: {
+            [Op.substring]: [filter],
+          },
+        },
+
+        offset: offset,
+        limit: 9,
+      });
+      res.status(200).json({
+        status: "success",
+        result: { products, offset },
+        category,
+      });
     } catch (error) {
       console.log(error);
       res.status(500).json({

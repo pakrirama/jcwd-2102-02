@@ -8,6 +8,5 @@ router.get("/:id", addressController.getAddressById);
 router.patch("/:id", addressController.editAddress);
 router.get("/user/:id_user", addressController.getAddressByUserId);
 router.post("/:id_user", addressController.addAddress);
-router.delete("/:id", addressController.deleteAddress);
 
 module.exports = router;

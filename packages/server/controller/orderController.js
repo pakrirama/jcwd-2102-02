@@ -76,12 +76,15 @@ class OrderController {
 
   static async getOrderById(req, res) {
     const { id } = req.params;
+    const { status, no_invoice, order, orderby, datefrom, dateto } = req.query;
+    let offset = req.query.offset ? req.query.offset : 0;
+    offset = parseInt(offset);
     try {
-      let order = await Order.findAll({
+      let orderData = await Order.findAll({
         include: [
           {
             model: Address,
-            attributes: { exclude: ["createdAt", "updatedAt"] },
+            attributes: { exclude: ["updatedAt"] },
           },
           {
             model: User,
@@ -104,12 +107,81 @@ class OrderController {
           },
         ],
         where: {
-          [Op.or]: [{ id }, { id_user: id }],
+          [Op.and]: [
+            no_invoice ? { no_invoice } : {},
+            { id_user: id },
+            datefrom && dateto
+              ? {
+                  [Op.or]: [
+                    {
+                      createdAt: {
+                        [Op.between]: [datefrom, dateto],
+                      },
+                    },
+                  ],
+                }
+              : {},
+            status ? { status } : {},
+          ],
+        },
+        order: order && orderby ? [[order, orderby]] : [["id", "DESC"]],
+        limit: 4,
+        offset,
+      });
+
+      const totalOrder = await Order.count();
+      return res.status(200).json({
+        message: "Get Order by User",
+        result: orderData,
+        id,
+        no_invoice,
+        offset,
+        totalOrder,
+        status,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        message: err.toString(),
+      });
+    }
+  }
+  static async getOrderByInvoice(req, res) {
+    const { id, no_invoice } = req.params;
+    try {
+      let orderData = await Order.findOne({
+        include: [
+          {
+            model: Address,
+            attributes: { exclude: ["updatedAt"] },
+          },
+          {
+            model: User,
+            attributes: ["full_name", "phone"],
+          },
+          {
+            model: Product_Order,
+            attributes: ["id", "quantity"],
+            include: { model: Product, attributes: ["id", "name", "price"] },
+          },
+          {
+            model: Expedition,
+            attributes: [
+              "cost",
+              "courier",
+              "service",
+              "estimation_time",
+              "description",
+            ],
+          },
+        ],
+        where: {
+          [Op.and]: [{ no_invoice }, { id_user: id }],
         },
       });
       return res.status(200).json({
         message: "Get Order by User",
-        result: order,
+        result: orderData,
       });
     } catch (err) {
       console.log(err);
@@ -127,6 +199,90 @@ class OrderController {
     });
     res.status(200).json({ status: "success", data: "deleted" });
   }
+
+  static async editOrderStatus(req, res) {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+      console.log(status);
+      await Order.update({ status }, { where: { id } });
+      res.status(200).json({ status: "success", result: status });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: err.toString(),
+      });
+    }
+  }
+
+  static async uploadPrescription(req, res) {
+    try {
+      const d = new Date();
+
+      const uploadFileDomain = process.env.UPLOAD_FILE_DOMAIN;
+      const filePath = "prescription";
+      if (!req.file) {
+        return res.status(200).json({
+          message: "No Image Selected",
+        });
+      }
+      const { filename } = req.file;
+
+      const newOrder = await Order.create({
+        ...req.body,
+        status: "Prescription",
+        prescription: `http://${uploadFileDomain}/${filePath}/${filename}`,
+      });
+
+      const no_invoice = `MDCR${newOrder.id_user}-${newOrder.id}${d.getTime()}`;
+      await newOrder.update({ no_invoice });
+
+      return res.status(200).json({
+        message: "Success create order by prescription",
+        newOrder,
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        err,
+      });
+    }
+  }
+
+  static async uploadPaymentReceipt(req, res) {
+    try {
+      const { id } = req.params;
+      const uploadFileDomain = process.env.UPLOAD_FILE_DOMAIN;
+      const filePath = "payment";
+      if (!req.file) {
+        return res.status(200).json({
+          message: "No Image Selected",
+        });
+      }
+      const { filename } = req.file;
+
+      await Order.update(
+        {
+          payment_receipt: `http://${uploadFileDomain}/${filePath}/${filename}`,
+          status: "Payment",
+        },
+        { where: { id } }
+      );
+      return res.status(200).json({
+        message: "Success change profile picture",
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(200).json({
+        err,
+      });
+    }
+  }
 }
 
 module.exports = OrderController;
+
+[
+  { id_category: 2, id_product: 1 },
+  { id_categiry: 1, id_product: 1 },
+];

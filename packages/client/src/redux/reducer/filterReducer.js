@@ -1,14 +1,14 @@
 const initialState = {
-  category: "",
-  filter: "",
-  order: "",
-  orderby: "",
+  category: '',
+  filter: '',
+  order: '',
+  orderby: '',
   offset: 0,
   banner: true,
 };
 
 const filterReducer = (state = initialState, action) => {
-  if (action.type === "SET_FILTER") {
+  if (action.type === 'SET_FILTER') {
     return {
       category: action.payload.category,
       filter: action.payload.filter,
@@ -18,7 +18,7 @@ const filterReducer = (state = initialState, action) => {
       banner: action.payload.banner,
     };
   }
-  if (action.type === "UNSET_FILTER") {
+  if (action.type === 'UNSET_FILTER') {
     return initialState;
   }
   return state;

@@ -1,0 +1,70 @@
+export const transactionOption = {
+  sort: [
+    {
+      label: 'Latest Invoice',
+      orderby: 'ASC',
+      order: 'id',
+    },
+    {
+      label: 'Newest Invoice',
+      orderby: 'DESC',
+      order: 'id',
+    },
+    {
+      label: 'Newest Date',
+      orderby: 'ASC',
+      order: 'createdAt',
+    },
+    {
+      label: 'Latest Date',
+      orderby: 'DESC',
+      order: 'createdAt',
+    },
+  ],
+  status1: [
+    {
+      status: 'Waiting For Payment',
+      label: 'Waiting For Payment',
+    },
+    {
+      status: 'Payment',
+      label: 'Payment',
+    },
+    {
+      status: 'Validation',
+      label: 'Validation',
+    },
+    {
+      status: 'Process',
+      label: 'Process',
+    },
+    {
+      status: 'Shipment',
+      label: 'Shipment',
+    },
+    {
+      status: 'Prescription',
+      label: 'Prescription',
+    },
+
+    {
+      status: 'Completed',
+      label: 'Completed',
+    },
+    {
+      status: 'Canceled',
+      label: 'Canceled',
+    },
+  ],
+  status: [
+    'All',
+    'Waiting For Payment',
+    'Payment',
+    'Validation',
+    'Process',
+    'Shipment',
+    'Completed',
+    'Prescription',
+    'Canceled',
+  ],
+};

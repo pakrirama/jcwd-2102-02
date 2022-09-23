@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import {
   Box,
   Flex,
@@ -11,26 +11,22 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
   useDisclosure,
-  useColorModeValue,
   Stack,
-  Image,
-  Icon,
-  InputRightElement,
-  Input,
-  InputGroup,
-  InputLeftElement,
   AvatarBadge,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { FiShoppingCart } from 'react-icons/fi';
-import { FaSearch } from 'react-icons/fa';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { SearchInput } from './SearchInput';
 import { useDispatch, useSelector } from 'react-redux';
-import { css } from '@emotion/react';
+import Logo1 from '../../public/Assets/image/MedicareHorizontalLogo.png';
+import Home from '../../public/Assets/Icon/Home.png';
+import UploadRecipt from '../../public/Assets/Icon/UploadRecipt.png';
+import PaymentRecipt from '../../public/Assets/Icon/PaymentRecipt.png';
+import NextImage from 'next/image';
+import { UploadPrescription } from '../../Component/Prescription/UploadPrescription';
 
 export default function Simple() {
   const dispatch = useDispatch();
@@ -53,9 +49,6 @@ export default function Simple() {
           alignItems={'center'}
           justifyContent={'space-between'}
           alignContent="center"
-          // w="1440px"
-          // h="96px"
-
           px={'30px'}
           sx={{
             maxW: '1440px',
@@ -72,13 +65,13 @@ export default function Simple() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Image
-              alt={'Logo Image'}
-              src={'/assets/image/MedicareHorizontalLogo.png'}
-              // maxWidth="32"
-              onClick={() => router.push('/home')}
-              cursor="pointer"
-            />
+            <Box maxW="200px" cursor="pointer">
+              <NextImage
+                alt={'Logo Image'}
+                src={Logo1}
+                onClick={() => router.push('/home')}
+              />
+            </Box>
             <HStack
               as={'nav'}
               spacing={4}
@@ -102,7 +95,7 @@ export default function Simple() {
                   }}
                   borderRadius={0}
                   h="75px"
-                  leftIcon={<Image src="assets/Icon/Home.png" />}
+                  leftIcon={<NextImage src={Home} />}
                   onClick={() => {
                     dispatch({ type: 'UNSET_FILTER' });
                     console.log(filter);
@@ -111,52 +104,7 @@ export default function Simple() {
                   Home{' '}
                 </Button>
               </NextLink>
-              <NextLink fontSize="bold" href="">
-                <Button
-                  bg="white"
-                  style={
-                    router.pathname == '/upload-prescription'
-                      ? {
-                          textDecoration: 'none',
-                          borderBottomWidth: '4px',
-                          borderBottomColor: 'teal',
-                        }
-                      : { textDecoration: 'none' }
-                  }
-                  _hover={{
-                    borderBottomWidth: '4px',
-                    borderBottomColor: 'teal',
-                  }}
-                  borderRadius={0}
-                  h="75px"
-                  leftIcon={<Image src="/assets/Icon/UploadRecipt.png" />}
-                >
-                  Upload Prescription
-                </Button>
-              </NextLink>
-              <NextLink fontSize="bold" href="/">
-                <Button
-                  bg="white"
-                  style={
-                    router.pathname == '/payment-confirmation'
-                      ? {
-                          textDecoration: 'none',
-                          borderBottomWidth: '4px',
-                          borderBottomColor: 'teal',
-                        }
-                      : { textDecoration: 'none' }
-                  }
-                  _hover={{
-                    borderBottomWidth: '4px',
-                    borderBottomColor: 'teal',
-                  }}
-                  borderRadius={0}
-                  h="75px"
-                  leftIcon={<Image src="/assets/Icon/PaymentRecipt.png" />}
-                >
-                  Payment Confirmation
-                </Button>
-              </NextLink>
+              <UploadPrescription />
             </HStack>
           </HStack>
           <Flex alignItems={'center'} gap={6}>

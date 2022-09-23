@@ -11,6 +11,7 @@ module.exports = {
           model: "Orders",
           key: "id",
         },
+        onDelete: "CASCADE",
       },
       cost: {
         type: Sequelize.FLOAT,

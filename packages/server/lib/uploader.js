@@ -31,7 +31,7 @@ const fileUploader = ({
       const fileSize = parseInt(req.headers["content-length"]);
       console.log(fileSize);
       if (fileSize > 1048576) {
-        return cb(null, false);
+        return cb(null, true);
       }
       cb(null, true);
     },
