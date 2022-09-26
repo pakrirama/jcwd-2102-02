@@ -9,8 +9,6 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var tokenRouter = require("./routes/token");
 var addressRouter = require("./routes/address");
-var recipeRouter = require("./routes/recipe");
-var paymentRecipeRouter = require("./routes/paymentRecipe");
 var cartRouter = require("./routes/cart");
 var productRouter = require("./routes/product");
 var productCategoryRouter = require("./routes/productCategory");
@@ -32,18 +30,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/token", tokenRouter);
-app.use("/address", addressRouter);
-app.use("/recipe", recipeRouter);
-app.use("/payment_recipe", paymentRecipeRouter);
-app.use("/cart", cartRouter);
-app.use("/product", productRouter);
-app.use("/product_category", productCategoryRouter);
-app.use("/product_description", productDescriptionRouter);
-app.use("/category", categoryRouter);
-app.use("/order", orderRouter);
+app.use("/api/v1", indexRouter);
+app.use("/api/v1/users", usersRouter);
+app.use("/api/v1/token", tokenRouter);
+app.use("/api/v1/address", addressRouter);
+app.use("/api/v1/cart", cartRouter);
+app.use("/api/v1/product", productRouter);
+app.use("/api/v1/product_category", productCategoryRouter);
+app.use("/api/v1/product_description", productDescriptionRouter);
+app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/order", orderRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

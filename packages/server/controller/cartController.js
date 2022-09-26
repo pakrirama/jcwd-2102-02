@@ -17,6 +17,7 @@ class CartController {
         },
       });
 
+      //masuk ke utils
       const stock = product.stock;
       if (stock < 1) {
         return res.status(200).json({
@@ -128,7 +129,7 @@ class CartController {
       });
       await findProductCart.save();
 
-      res.status(200).json({ message });
+      res.status(200).json({ message, findProductCart });
     } catch (error) {
       console.log(error);
       res.status(500).json({

@@ -1,4 +1,4 @@
-const { User, Address } = require("../models");
+const { User, Address, Cart } = require("../models");
 
 class userController {
   static async addUser(req, res) {
@@ -40,6 +40,12 @@ class userController {
       const { id } = req.params;
 
       const findUser = await User.findAll({
+        include: [
+          {
+            model: Cart,
+            attributes: ["id", "total_item"],
+          },
+        ],
         where: {
           id,
         },
@@ -90,6 +96,11 @@ class userController {
       const { id } = req.params;
       const uploadFileDomain = process.env.UPLOAD_FILE_DOMAIN;
       const filePath = "profile_pict";
+      if (!req.file) {
+        return res.status(200).json({
+          message: "No Image Selected",
+        });
+      }
       const { filename } = req.file;
 
       await User.update(
@@ -100,9 +111,8 @@ class userController {
         message: "Success change profile picture",
       });
     } catch (err) {
-      console.log(err);
-      res.status(200).json({
-        message: "size invalid",
+      return res.status(500).json({
+        message: err.message,
       });
     }
   }

@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       postal_code: DataTypes.STRING,
       id_user: DataTypes.INTEGER,
       city_id: DataTypes.STRING,
+      is_deleted: DataTypes.STRING,
     },
     {
       sequelize,

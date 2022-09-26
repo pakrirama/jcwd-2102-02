@@ -56,7 +56,7 @@ class AddressController {
       const { id_user } = req.params;
 
       const findAddress = await Address.findAll({
-        where: { id_user },
+        where: [{ id_user }, { is_deleted: "exist" }],
         include: {
           model: User,
           attributes: ["email", "phone", "full_name"],
@@ -77,7 +77,7 @@ class AddressController {
 
   static async deleteAddress(req, res) {
     try {
-      await Address.destroy({
+      await Address.update({
         where: {
           id: req.params.id,
         },

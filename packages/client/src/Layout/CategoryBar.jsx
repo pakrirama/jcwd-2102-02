@@ -10,14 +10,14 @@ export const CategoryBar = () => {
   const filter = useSelector((state) => state.filterReducer);
 
   const handleClick = (param) => {
-    dispatch({
-      type: 'SET_FILTER',
-      payload: {
-        category: param,
-        banner: false,
-        offset: 0,
-      },
-    });
+    // dispatch({
+    //   type: 'SET_FILTER',
+    //   payload: {
+    //     category: param,
+    //     banner: false,
+    //     offset: 0,
+    //   },
+    // });
     console.log(filter);
   };
 
@@ -49,7 +49,7 @@ export const CategoryBar = () => {
           fontSize="16px"
           fontWeight={400}
           style={
-            filter.category == 'medication'
+            filter.category == 'Medication'
               ? {
                   textDecoration: 'none',
                   borderBottomWidth: '4px',
@@ -62,7 +62,7 @@ export const CategoryBar = () => {
             borderBottomColor: 'teal',
           }}
           onClick={() => {
-            handleClick('medication');
+            handleClick('Medication');
           }}
         >
           Medication
@@ -74,7 +74,7 @@ export const CategoryBar = () => {
           fontSize="16px"
           fontWeight={400}
           style={
-            filter.category == 'vitamin-supplements'
+            filter.category == 'Vitamin-Supplement'
               ? {
                   textDecoration: 'none',
                   borderBottomWidth: '4px',
@@ -87,7 +87,7 @@ export const CategoryBar = () => {
             borderBottomColor: 'teal',
           }}
           onClick={() => {
-            handleClick('vitamin-supplements');
+            handleClick('Vitamin-Supplement');
           }}
         >
           Vitamin & Supplements
@@ -99,7 +99,7 @@ export const CategoryBar = () => {
           fontSize="16px"
           fontWeight={400}
           style={
-            filter.category == 'women-health'
+            filter.category == 'Women-Health'
               ? {
                   textDecoration: 'none',
                   borderBottomWidth: '4px',
@@ -112,7 +112,7 @@ export const CategoryBar = () => {
             borderBottomColor: 'teal',
           }}
           onClick={() => {
-            handleClick('women-health');
+            handleClick('Women-Health');
           }}
         >
           Women's Health
@@ -124,7 +124,7 @@ export const CategoryBar = () => {
           fontSize="16px"
           fontWeight={400}
           style={
-            filter.category == 'men-health'
+            filter.category == 'Men-Health'
               ? {
                   textDecoration: 'none',
                   borderBottomWidth: '4px',
@@ -137,7 +137,7 @@ export const CategoryBar = () => {
             borderBottomColor: 'teal',
           }}
           onClick={() => {
-            handleClick('men-health');
+            handleClick('Men-Health');
           }}
         >
           Mens's Health
@@ -149,7 +149,7 @@ export const CategoryBar = () => {
           fontSize="16px"
           fontWeight={400}
           style={
-            filter.category == 'infant-children'
+            filter.category == 'Infant-Children'
               ? {
                   textDecoration: 'none',
                   borderBottomWidth: '4px',
@@ -162,7 +162,7 @@ export const CategoryBar = () => {
             borderBottomColor: 'teal',
           }}
           onClick={() => {
-            handleClick('infant-children');
+            handleClick('Infant-Children');
           }}
         >
           Infant & Children

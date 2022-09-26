@@ -23,7 +23,7 @@ class CategoryController {
   static async getAllCategory(req, res) {
     try {
       let findCategorys = await Category.findAll({
-        include: [Product],
+        attributes: ["id", "category"],
       });
       res.status(200).json({ status: "success", result: findCategorys });
     } catch (error) {

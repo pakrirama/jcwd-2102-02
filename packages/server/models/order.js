@@ -5,10 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Order.belongsTo(models.User, { foreignKey: "id_user" });
       Order.belongsTo(models.Address, { foreignKey: "id_address" });
-      Order.belongsTo(models.Recipe, { foreignKey: "id_recipe" });
-      Order.belongsTo(models.Payment_Recipe, {
-        foreignKey: "id_payment_recipe",
-      });
       Order.hasMany(models.Product_Order, { foreignKey: "id_order" });
       Order.hasOne(models.Expedition, { foreignKey: "id" });
     }
@@ -24,8 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       cancled_description: DataTypes.STRING,
       id_user: DataTypes.INTEGER,
       id_address: DataTypes.INTEGER,
-      id_recipe: DataTypes.INTEGER,
-      id_payment_recipe: DataTypes.INTEGER,
+      payment_receipt: DataTypes.STRING,
+      prescription: DataTypes.STRING,
+      note: DataTypes.STRING,
     },
     {
       sequelize,
