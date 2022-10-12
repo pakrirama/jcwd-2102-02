@@ -22,7 +22,7 @@ import testing from '../../assets/imgs/verify.gif';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { UserVerified } from '../../redux/action/userVerified';
+// import { UserVerified } from '../../redux/action/userVerified';
 import { axiosInstance } from '../../lib/api';
 import { useRouter } from 'next/router';
 
