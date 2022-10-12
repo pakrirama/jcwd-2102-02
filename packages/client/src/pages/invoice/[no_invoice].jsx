@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { InvoiceContainer } from '../../Component/User/Invoice/invoiceContainer';
-import { Layout } from '../../layout';
+import { Layout } from '../../Layout';
 import { useRouter } from 'next/router';
 
 const invoice = () => {
