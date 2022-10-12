@@ -5,7 +5,7 @@ const { generateToken, verifyToken } = require("../lib/jwt");
 const mailer = require("../lib/mailer");
 const { Error } = require("sequelize");
 
-async function sendVerification(id, email, username) {
+async function SendVerification(id, email, username) {
   const verToken = await generateToken(
     { id, isEmailVerification: true },
     "180s"
@@ -188,7 +188,7 @@ class userController {
         id: user.id,
         isEmailVerification: true,
       });
-      const verToken = await sendVerification(user.id, email, username);
+      const verToken = await SendVerification(user.id, email, username);
       console.log(token);
       console.log(verToken);
 
@@ -239,7 +239,7 @@ class userController {
     try {
       const { id, email, username } = req.body;
       const token = generateToken({ id, isEmailVerification: true });
-      const verToken = await sendVerification(id, email, username);
+      const verToken = await SendVerification(id, email, username);
 
       return res.status(200).json({
         message: "verification send",
