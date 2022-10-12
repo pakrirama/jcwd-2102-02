@@ -13,7 +13,7 @@ import { BankList } from '../Component/User/Checkout/BankList/BankList';
 import { DeliveryDetail } from '../Component/User/Checkout/DeliveryDetail/DeliveryDetail';
 import { ChekcoutList } from '../Component/User/Checkout/OrderList/CheckoutList';
 import { OrderSummary } from '../Component/User/Checkout/OrderSummary/OrderSummary';
-import { Layout } from '../layout';
+import { Layout } from '../Layout';
 import { axiosInstance } from '../lib/api';
 
 const checkout = () => {

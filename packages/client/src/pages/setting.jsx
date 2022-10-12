@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Text, Box, Spacer, Flex } from '@chakra-ui/react';
 
-import { Layout } from '../layout';
+import { Layout } from '../Layout';
 import { BreadCrumb } from '../Component/BreadCrumb';
 import { AddressList } from '../Component/User/Profile/Address/AddressList';
 import ProfileEdit from '../Component/User/Profile/EditProfile/ProfileEdit';
