@@ -1,6 +1,6 @@
-import jsCookie from 'js-cookie';
+// import jsCookie from 'js-cookie';
 import { axiosInstance } from '../../lib/api';
-import auth_types from '../reducers/auth/type';
+// import auth_types from '../reducers/auth/type';
 import qs from 'qs';
 import Router from 'next/router';
 
