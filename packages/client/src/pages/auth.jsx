@@ -10,7 +10,7 @@ export default function Login() {
   const userSelector = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const url = 'http://localhost:3000' + router.pathname;
+  const url = 'https://jcwd210202.purwadhikabootcamp.com/' + router.pathname;
 
   useEffect(() => {
     if (userSelector?.id) {
