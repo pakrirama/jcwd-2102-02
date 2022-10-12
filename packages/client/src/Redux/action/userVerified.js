@@ -1,7 +1,7 @@
 import { axiosInstance } from "../../lib/api";
 import qs from "qs";
 
-export function userVerified(values, setSubmitting) {
+export function UserVerified(values, setSubmitting) {
  return async function (dispatch) {
  try {
       let body = {
