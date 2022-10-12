@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartList } from '../Component/User/Cart/CartList';
 import { CartSummary } from '../Component/User/Cart/CartSummary';
-import { Layout } from '../layout';
+import { Layout } from '../Layout';
 import { axiosInstance } from '../lib/api';
 
 const cart = () => {
