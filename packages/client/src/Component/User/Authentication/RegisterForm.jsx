@@ -20,7 +20,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { UserRegister } from '../../../redux/action/userRegister';
+// import { UserRegister } from '../../../redux/action/userRegister';
+import {UserRegister} from '../../../redux/action/userRegister';
 
 export default function RegisterForm() {
   const [passwordView, setPasswordView] = useState(false);
