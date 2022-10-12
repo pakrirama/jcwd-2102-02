@@ -28,4 +28,4 @@ const TransactionReducer = (state = initialState, action) => {
   return state;
 };
 
-export default transactionReducer;
+export default TransactionReducer;
