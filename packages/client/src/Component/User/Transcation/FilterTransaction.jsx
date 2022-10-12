@@ -3,9 +3,10 @@ import { Box, Button, Flex, Input, Spacer, Text } from '@chakra-ui/react';
 
 import { Select } from 'chakra-react-select';
 import { useDispatch, useSelector } from 'react-redux';
-import { TransactionOption } from '../../../lib/transactionFilter';
+
 import { DateFilter } from '../../DateFilter';
 import { BiReset } from 'react-icons/bi';
+import { TransactionOption } from '../../../lib/transactionFilter';
 
 export const FilterTransaction = () => {
   const dispatch = useDispatch();
