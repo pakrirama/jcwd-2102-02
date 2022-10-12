@@ -12,7 +12,7 @@ import {
 
 import { Select } from 'chakra-react-select';
 import { useDispatch, useSelector } from 'react-redux';
-import { transactionOption } from '../../../lib/transactionFilter';
+import { TransactionOption } from '../../../lib/transactionFilter';
 import { PagingList } from '../../PagingList';
 import { DateFilter } from '../../DateFilter';
 import { BiReset } from 'react-icons/bi';
@@ -130,7 +130,7 @@ export const OrderFilter = () => {
           <Box minW={'16rem'} shadow="md">
             <Select
               size="sm"
-              options={transactionOption.sort}
+              options={TransactionOption.sort}
               placeholder="Sort By"
               focusBorderColor="teal.400"
               colorScheme="purple"

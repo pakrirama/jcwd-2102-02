@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Box, Button, Center, Flex, SimpleGrid } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FilterTransaction } from './FilterTransaction';
-import { transactionOption } from '../../../lib/transactionFilter';
+import { TransactionOption } from '../../../lib/transactionFilter';
 
 export const TransactionHeader = () => {
   const dispatch = useDispatch();
 
   const transactionSelector = useSelector((state) => state.transactionReducer);
-  const data = transactionOption.status;
+  const data = TransactionOption.status;
 
   const handleClick = (params) => {
     if (params == 'All') {

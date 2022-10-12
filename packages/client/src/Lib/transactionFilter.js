@@ -1,4 +1,4 @@
-export const transactionOption = {
+export const TransactionOption = {
   sort: [
     {
       label: 'Latest Invoice',

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { CategoryBar } from '../Layout/CategoryBar';
 
-import { Layout } from '../layout';
+import { Layout } from '../Layout';
 import { Banner } from '../Layout/Banner';
 import { ProductListContainer } from '../Component/User/Product/ListContainer';
 
