@@ -4,7 +4,7 @@ import { axiosInstance } from "../../lib/api";
 import auth_types from "../reducers/auth/type";
 import qs from "qs";
 
-export function userLogin(values, setSubmitting) {
+export function UserLogin(values, setSubmitting) {
 
   return async function (dispatch) {
     try { 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import HeadPage from '../../Layout/Head';
 import { BreadCrumb } from '../../Component/BreadCrumb';
-import { Layout } from '../../layout';
+import { Layout } from '../../Layout';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';

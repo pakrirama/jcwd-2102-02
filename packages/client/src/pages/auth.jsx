@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Page from '../Component/User/Authentication/Tag';
 
-export default function login() {
+export default function Login() {
   const userSelector = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
