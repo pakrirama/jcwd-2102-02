@@ -1,14 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
-// import authReducer from './reducer/authReducer';
-import authReducer from './reducer/authReducer';
-import renderReducer from './reducer/renderReducer';
-import addressReducer from './reducer/addressReducer';
-import filterReducer from './reducer/filterReducer';
-import cartReducer from './reducer/cartReducer';
-import transactionReducer from './reducer/transactionReducer';
-
-// import automateRendering from './reducer/render/rendering';
-// import auth_reducer from './reducers/auth/auth';
+import authReducer from './reducers/authReducer';
+import renderReducer from './reducers/renderReducer';
+import addressReducer from './reducers/addressReducer';
+import filterReducer from './reducers/filterReducer';
+import cartReducer from './reducers/cartReducer';
+import transactionReducer from './reducers/transactionReducer';
+import prescriptionFormReducer from './reducers/prescriptionFormReducer';
 
 const rootReducer = combineReducers({
   authReducer,
@@ -17,6 +14,7 @@ const rootReducer = combineReducers({
   filterReducer,
   cartReducer,
   transactionReducer,
+  prescriptionFormReducer,
 });
 
 export default rootReducer;

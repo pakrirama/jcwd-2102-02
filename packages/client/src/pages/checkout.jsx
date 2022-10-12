@@ -9,22 +9,23 @@ import {
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BankList } from '../Component/Checkout/BankList/BankList';
-import { DeliveryDetail } from '../Component/Checkout/DeliveryDetail/DeliveryDetail';
-import { ChekcoutList } from '../Component/Checkout/OrderList/CheckoutList';
-import { OrderSummary } from '../Component/Checkout/OrderSummary/OrderSummary';
+import { BankList } from '../Component/User/Checkout/BankList/BankList';
+import { DeliveryDetail } from '../Component/User/Checkout/DeliveryDetail/DeliveryDetail';
+import { ChekcoutList } from '../Component/User/Checkout/OrderList/CheckoutList';
+import { OrderSummary } from '../Component/User/Checkout/OrderSummary/OrderSummary';
 import { Layout } from '../layout';
-import { axiosInstance } from '../Lib/api';
+import { axiosInstance } from '../lib/api';
 
 const checkout = () => {
   const [cartData, setCartData] = useState([]);
   const router = useRouter();
   const toast = useToast();
   const cartSelector = useSelector((state) => state.cartReducer);
+  const authSelector = useSelector((state) => state.authReducer);
 
   const fetchCartData = async () => {
     try {
-      const res = await axiosInstance.get(`/cart/user/3`);
+      const res = await axiosInstance.get(`/cart/user/${authSelector.id}`);
       const data = res.data.result;
       console.log(data);
       if (!data.Product_Carts.length) {

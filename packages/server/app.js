@@ -15,6 +15,9 @@ var productCategoryRouter = require("./routes/productCategory");
 var productDescriptionRouter = require("./routes/productDescription");
 var categoryRouter = require("./routes/category");
 var orderRouter = require("./routes/order");
+var productHistoryRouter = require("./routes/productHistory");
+var productStockRouter = require("././routes/productStock");
+var unitConverterRouter = require("./routes/unitConveter");
 
 var app = express();
 
@@ -38,8 +41,11 @@ app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/product_category", productCategoryRouter);
 app.use("/api/v1/product_description", productDescriptionRouter);
+app.use("/api/v1/product_stock", productStockRouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/product_history", productHistoryRouter);
+app.use("/api/v1/unitConverter", unitConverterRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

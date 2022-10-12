@@ -5,7 +5,7 @@ import qs from "qs";
 
 export function userLogin(values, setSubmitting) {
   return async function (dispatch) {
-    try { 
+    try {
       let body = {
         username: values.username,
         email: values.email,
@@ -13,7 +13,6 @@ export function userLogin(values, setSubmitting) {
       };
       const res = await axiosInstance.post("/users/login", qs.stringify(body));
 
-      // const userData = res.data.result;
       const userData = res.data.result.user;
       const token = res.data.result.token;
 
@@ -24,13 +23,8 @@ export function userLogin(values, setSubmitting) {
         throw new Error("Wrong password");
       }
 
-      // const userData = user;
-      // const stringifiedUserData = JSON.stringify(userData.email);
-
       console.log(userData);
 
-      // jsCookie.set("user_data", stringifiedUserData);
-      // jsCookie.set("auto_render", rendering)
       jsCookie.set("auth_token", token);
       dispatch({
         type: auth_types.AUTH_LOGIN,
@@ -40,8 +34,8 @@ export function userLogin(values, setSubmitting) {
       setSubmitting(false);
     } catch (err) {
       console.log(err);
-      alert("Username, Email or Password wrong")
-      
+      alert("Username, Email or Password wrong");
+
       setSubmitting(false);
     }
   };

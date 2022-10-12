@@ -24,7 +24,7 @@ export const PagingList = () => {
     });
   };
   return (
-    <Box gap="1.5rem" h="3rem" w="12rem" display={'flex'} my="2rem">
+    <Box gap="1.5rem" display={'flex'} my="auto">
       <Image src="/assets/icon/arrow/left2.png" style={sxImage} />
       <Image
         src="/assets/icon/arrow/left1.png"
@@ -35,7 +35,7 @@ export const PagingList = () => {
         }}
       />
 
-      <Box mb="8px" display="flex" gap="1.5rem" fontSize={'1.2rem'}>
+      <Box mb="8px" display="flex" gap="1rem" fontSize={'sm'}>
         <Text cursor="pointer">1</Text>
         <Text cursor="pointer">2</Text>
         <Text cursor="pointer">3</Text>
@@ -57,8 +57,8 @@ export const PagingList = () => {
 };
 
 const sxImage = {
-  height: '24px',
-  width: '15px',
+  height: '18px',
+  width: '8px',
   paddingTop: '5px',
   cursor: 'pointer',
 };

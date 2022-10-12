@@ -4,7 +4,7 @@ import { CategoryBar } from '../Layout/CategoryBar';
 
 import { Layout } from '../layout';
 import { Banner } from '../Layout/Banner';
-import { ProductListContainer } from '../Component/Product/ListContainer';
+import { ProductListContainer } from '../Component/User/Product/ListContainer';
 
 const IndexPage = () => {
   const filter = useSelector((state) => state.filterReducer);

@@ -19,17 +19,17 @@ import {
   Center,
   VStack,
 } from '@chakra-ui/react';
-import AdminNavBar from '../../../admin/componen/adminNavbar/AdminNavBar';
-import SideBar from '../../../admin/componen/sidebar/sidebar';
+
+import SideBar from '../../../Component/Admin/sidebar/sidebar';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import Navpro from '../../../admin/componen/product/navProduct/navPro';
-import SearchPro from '../../../admin/componen/product/searchpro/Searhchpro';
-import ProductTabel from '../../../admin/componen/product/productTabel/productTabel';
-//  import FilterProduct from '../../../admin/componen/product/category/filterCategory/filterCategory';
-import SortProduct from '../../../admin/componen/product/sortProduct/sort';
+import Navpro from '../../../Component/Admin/product/navProduct/navPro';
+import ProductTabel from '../../../Component/Admin/product/productTabel/productTabel';
+import SortProduct from '../../../Component/Admin/product/sortProduct/sort';
+import { DateFilter } from '../../../Component/DateFilter';
+import AdminNavBar from '../../../Component/Admin/adminNavbar/AdminNavBar';
 
 export default function listProduct() {
   const router = useRouter();
@@ -39,7 +39,7 @@ export default function listProduct() {
     if (userSelector?.role === 'admin') {
       router.push('/admin/product');
     } else {
-      router.push('/home');
+      router.push('/');
     }
   }, [userSelector?.role === 'admin']);
 
@@ -93,10 +93,6 @@ export default function listProduct() {
               fontWeight="semibold"
             >
               <Navpro />
-
-              <Box mt="10px">
-                <SearchPro />
-              </Box>
             </Box>
           </Flex>
           <Flex mt="10px">

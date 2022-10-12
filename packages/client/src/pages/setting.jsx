@@ -3,9 +3,8 @@ import { Text, Box, Spacer, Flex } from '@chakra-ui/react';
 
 import { Layout } from '../layout';
 import { BreadCrumb } from '../Component/BreadCrumb';
-import { AddressList } from '../Component/Profile/Address/AddressList';
-
-import ProfileEdit from '../Component/Profile/EditProfile/ProfileEdit';
+import { AddressList } from '../Component/User/Profile/Address/AddressList';
+import ProfileEdit from '../Component/User/Profile/EditProfile/ProfileEdit';
 
 const Setting = () => {
   return (

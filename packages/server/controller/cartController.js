@@ -18,7 +18,7 @@ class CartController {
       });
 
       //masuk ke utils
-      const stock = product.stock;
+      const stock = product.primary_stock;
       if (stock < 1) {
         return res.status(200).json({
           message: "Not Enoguh Stock!",
@@ -34,7 +34,7 @@ class CartController {
           id_cart,
         },
       });
-      console.log(findProductCart);
+
       if (findProductCart) {
         message = "Quantitiy Product Added";
         findProductCart.set({
@@ -76,7 +76,14 @@ class CartController {
           {
             model: Product_Cart,
             attributes: ["id", "quantity"],
-            include: { model: Product, attributes: ["id", "name", "price"] },
+            include: {
+              model: Product,
+              attributes: ["id", "name"],
+              include: {
+                model: Product_Stock,
+                attributes: ["selling_price"],
+              },
+            },
           },
         ],
         where: {
@@ -88,7 +95,9 @@ class CartController {
       let totalPrice = 0;
       cart.Product_Carts.forEach((val) => {
         let qty = val.dataValues.quantity;
-        let price = val.dataValues.Product.price;
+        let price = val.dataValues.Product.Product_Stock.selling_price;
+
+        console.log(price);
         totalItem += qty;
         totalPrice += qty * price;
       });
@@ -97,7 +106,6 @@ class CartController {
       cart.total_price = totalPrice;
 
       await cart.save();
-      console.log(cart);
 
       return res.status(200).json({
         message: "Get Cart",

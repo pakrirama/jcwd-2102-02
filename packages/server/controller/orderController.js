@@ -4,6 +4,7 @@ const {
   Address,
   Product_Order,
   Product_Cart,
+  Product_Stock,
   Product,
   Expedition,
 } = require("../models");
@@ -39,15 +40,17 @@ class OrderController {
         temp.id = 0;
         temp.id_product = productCart[i].Product.id;
         temp.quantity = productCart[i].quantity;
+        temp.type = "Medicine";
         pcId.push(productCart[i].id);
         orderProductData.push(temp);
       }
-
+      console.log("orderProductData");
+      console.log(orderProductData);
       const newOrderProduct = await Product_Order.bulkCreate(orderProductData, {
         returning: true,
       });
 
-      // await Product_Cart.destroy({ where: { id: pcId } });
+      await Product_Cart.destroy({ where: { id: pcId } });
 
       return res.status(200).json({
         message: "new order has been created",
@@ -63,22 +66,11 @@ class OrderController {
   }
 
   static async getAllOrder(req, res) {
-    try {
-      let findOrders = await Order.findAll();
-      res.status(200).json({ status: "success", result: findOrders });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({
-        message: error.toString(),
-      });
-    }
-  }
-
-  static async getOrderById(req, res) {
-    const { id } = req.params;
-    const { status, no_invoice, order, orderby, datefrom, dateto } = req.query;
+    const { status, no_invoice, order, orderby, datefrom, dateto, limit } =
+      req.query;
     let offset = req.query.offset ? req.query.offset : 0;
     offset = parseInt(offset);
+
     try {
       let orderData = await Order.findAll({
         include: [
@@ -92,8 +84,15 @@ class OrderController {
           },
           {
             model: Product_Order,
-            attributes: ["id", "quantity"],
-            include: { model: Product, attributes: ["id", "name", "price"] },
+            attributes: ["id", "quantity", "type"],
+            include: {
+              model: Product,
+              attributes: ["id", "name", "price"],
+              include: {
+                model: Product_Stock,
+                attributes: ["id", "primary_stock", "primary_unit"],
+              },
+            },
           },
           {
             model: Expedition,
@@ -106,6 +105,88 @@ class OrderController {
             ],
           },
         ],
+
+        where: {
+          [Op.and]: [
+            no_invoice ? { no_invoice } : {},
+            datefrom && dateto
+              ? {
+                  [Op.or]: [
+                    {
+                      createdAt: {
+                        [Op.between]: [datefrom, dateto],
+                      },
+                    },
+                  ],
+                }
+              : {},
+            status ? { status } : {},
+          ],
+        },
+        order: order && orderby ? [[order, orderby]] : [["id", "DESC"]],
+        limit: limit ? parseInt(limit) : undefined,
+        offset,
+      });
+
+      const totalOrder = await Order.count();
+      return res.status(200).json({
+        message: "Get Order ",
+        result: orderData,
+        no_invoice,
+        offset,
+        totalOrder,
+        status,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: error.toString(),
+      });
+    }
+  }
+
+  static async getOrderByUserId(req, res) {
+    const { id } = req.params;
+    const { status, no_invoice, order, orderby, datefrom, dateto, limit } =
+      req.query;
+    let offset = req.query.offset ? req.query.offset : 0;
+    offset = parseInt(offset);
+
+    try {
+      let orderData = await Order.findAll({
+        include: [
+          {
+            model: Address,
+            attributes: { exclude: ["updatedAt"] },
+          },
+          {
+            model: User,
+            attributes: ["full_name", "phone"],
+          },
+          {
+            model: Product_Order,
+            attributes: ["id", "quantity", "type"],
+            include: {
+              model: Product,
+              attributes: ["id", "name"],
+              include: {
+                model: Product_Stock,
+                attributes: ["selling_price", "secondary_price"],
+              },
+            },
+          },
+          {
+            model: Expedition,
+            attributes: [
+              "cost",
+              "courier",
+              "service",
+              "estimation_time",
+              "description",
+            ],
+          },
+        ],
+
         where: {
           [Op.and]: [
             no_invoice ? { no_invoice } : {},
@@ -125,7 +206,7 @@ class OrderController {
           ],
         },
         order: order && orderby ? [[order, orderby]] : [["id", "DESC"]],
-        limit: 4,
+        limit: limit ? parseInt(limit) : undefined,
         offset,
       });
 
@@ -161,8 +242,15 @@ class OrderController {
           },
           {
             model: Product_Order,
-            attributes: ["id", "quantity"],
-            include: { model: Product, attributes: ["id", "name", "price"] },
+            attributes: ["id", "quantity", "type"],
+            include: {
+              model: Product,
+              attributes: ["id", "name"],
+              include: {
+                model: Product_Stock,
+                attributes: ["selling_price", "secondary_price"],
+              },
+            },
           },
           {
             model: Expedition,
@@ -218,7 +306,7 @@ class OrderController {
   static async uploadPrescription(req, res) {
     try {
       const d = new Date();
-
+      const estimation_time = req.body.etd;
       const uploadFileDomain = process.env.UPLOAD_FILE_DOMAIN;
       const filePath = "prescription";
       if (!req.file) {
@@ -231,11 +319,17 @@ class OrderController {
       const newOrder = await Order.create({
         ...req.body,
         status: "Prescription",
-        prescription: `http://${uploadFileDomain}/${filePath}/${filename}`,
+        prescription: `${uploadFileDomain}/${filePath}/${filename}`,
       });
 
       const no_invoice = `MDCR${newOrder.id_user}-${newOrder.id}${d.getTime()}`;
       await newOrder.update({ no_invoice });
+
+      await Expedition.create({
+        ...req.body,
+        id: newOrder.id,
+        estimation_time,
+      });
 
       return res.status(200).json({
         message: "Success create order by prescription",
@@ -278,11 +372,69 @@ class OrderController {
       });
     }
   }
+
+  static async prescriptionCopy(req, res) {
+    const medicineItem = req.body.medicine;
+    const compoundItem = req.body.compound;
+    const prescriptionItem = [...medicineItem, ...compoundItem];
+
+    try {
+      const order = await Order.findOne({ where: { id: req.params.id } });
+
+      const expedition = await Expedition.findOne({
+        where: { id: req.params.id },
+      });
+      console.log("prescriptionItem");
+      console.log(prescriptionItem);
+      const shipping_cost = expedition.cost;
+
+      const orderProductData = [];
+
+      let total_price = 0;
+      let total_item = 0;
+      for (let i = 0; i < prescriptionItem.length; i++) {
+        let temp = {};
+        temp.id_order = order.id;
+        temp.id_product = prescriptionItem[i].id;
+        temp.quantity = prescriptionItem[i].quantity;
+        temp.type = prescriptionItem[i].tipe;
+        if (temp.type == "Chemical Raw") {
+          total_price += temp.quantity * prescriptionItem[i].secondaryPrice;
+        } else if (temp.type == "Medicine") {
+          total_price += temp.quantity * prescriptionItem[i].primaryPrice;
+        }
+        total_item += temp.quantity;
+
+        if (prescriptionItem[i].id && prescriptionItem[i].quantity) {
+          orderProductData.push(temp);
+        }
+      }
+      const total_payment = shipping_cost + total_price;
+
+      await order.update({
+        total_price,
+        total_item,
+        total_payment,
+        shipping_cost,
+        status: "Waiting For Payment",
+      });
+
+      const newOrderProduct = await Product_Order.bulkCreate(orderProductData, {
+        returning: true,
+      });
+
+      return res.status(200).json({
+        message: "prescription copied to order",
+        result: order,
+        po: newOrderProduct,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: error.toString(),
+      });
+    }
+  }
 }
 
 module.exports = OrderController;
-
-[
-  { id_category: 2, id_product: 1 },
-  { id_categiry: 1, id_product: 1 },
-];

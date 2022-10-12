@@ -19,29 +19,26 @@ import {
   Center,
   VStack,
 } from '@chakra-ui/react';
-import AdminNavBar from '../../../admin/componen/adminNavbar/AdminNavBar';
-import SideBar from '../../../admin/componen/sidebar/sidebar';
+import AdminNavBar from '../../../Component/Admin/adminNavbar/AdminNavBar';
+import SideBar from '../../../Component/Admin/sidebar/sidebar';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import Navpro from '../../../admin/componen/product/navProduct/navPro';
-import SearchPro from '../../../admin/componen/product/searchpro/Searhchpro';
-import CategoryTabel from '../../../admin/componen/product/category/tabelCat';
-import ProcatTabel from '../../../admin/componen/product/category/ProCat';
+import Navpro from '../../../Component/Admin/product/navProduct/navPro';
+import SearchPro from '../../../Component/Admin/product/searchpro/Searhchpro';
+import CategoryTabel from '../../../Component/Admin/product/category/tabelCat';
 export default function listProduct() {
   const router = useRouter();
   const userSelector = useSelector((state) => state.authReducer);
 
   useEffect(() => {
-    if (userSelector?.role != 'admin') {
+    if (userSelector?.role === 'admin') {
+      router.push('/admin/category');
+    } else {
       router.push('/');
-      console.log(userSelector.role);
-      console.log('mashok');
     }
-    console.log('ADADAD');
-    console.log(userSelector.role);
-  }, [userSelector?.role]);
+  }, [userSelector?.role === 'admin']);
 
   const AddnewPro = () => {
     router.push('/admin/category/addCategory');
@@ -71,7 +68,7 @@ export default function listProduct() {
                   size="md"
                   my="5px"
                   textColor={'white'}
-                  disabled={userSelector?.id ? false : true}
+                  disabled={userSelector.id ? false : true}
                   onClick={AddnewPro}
                 >
                   <Icon boxSize="3" as={AiOutlinePlus} mr="5px" />
@@ -81,10 +78,7 @@ export default function listProduct() {
             </Flex>
           </Flex>
           <Flex>
-            <Box m="10px" h="100px" w="800px" fontWeight="semibold">
-              <Navpro />
-              <SearchPro />
-            </Box>
+            <Box m="10px" h="100px" w="800px" fontWeight="semibold"></Box>
           </Flex>
           <Flex>
             <Box m="15px" h="300px" w="1400px" fontWeight="semibold" pb="100px">

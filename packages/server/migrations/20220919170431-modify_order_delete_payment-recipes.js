@@ -2,8 +2,8 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Payment_Recipes");
     await queryInterface.removeColumn("Orders", "id_payment_recipe");
+    await queryInterface.dropTable("Payment_Recipes");
     await queryInterface.addColumn("Orders", "payment_receipt", {
       type: Sequelize.STRING,
       after: "id_address",
