@@ -3,10 +3,26 @@ const { Product_Description, User } = require("../models");
 class ProductDescriptionController {
   static async addProductDescription(req, res) {
     try {
-      const { purpose } = req.body;
+      const { purpose,
+        indication,
+        compotition,
+        how_to_use ,
+        side_effects ,
+        caution ,
+        contradictory ,
+        how_to_save ,
+        packaging , } = req.body;
 
       const newProductDescription = await Product_Description.create({
         purpose,
+        indication,
+        compotition,
+        how_to_use ,
+        side_effects ,
+        caution ,
+        contradictory ,
+        how_to_save ,
+        packaging ,
       });
       return res.status(200).json({
         message: "new ProductDescription has been created",

@@ -1,16 +1,16 @@
 import React from 'react';
 
-import HeadPage from '../../src/Layout/Head';
-import { BreadCrumb } from '../../src/Component/BreadCrumb';
-import { Layout } from '../../src/layout';
+import HeadPage from '../../Layout/Head';
+import { BreadCrumb } from '../../Component/BreadCrumb';
+import { Layout } from '../../layout';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
-import { ProductDetailContainer } from '../../src/Product/DetailContainer';
+import { ProductDetailContainer } from '../../Component/User/Product/DetailContainer';
 
 const ProductDetail = ({ val }) => {
   const router = useRouter();
-  const url = `http://localhost:3000${router.pathname}`;
+  const url = `https://jcwd210202.purwadhikabootcamp.com${router.pathname}`;
   const filter = useSelector((state) => state.filterReducer);
   console.log(val);
 
@@ -45,11 +45,15 @@ const ProductDetail = ({ val }) => {
 export async function getServerSideProps(context) {
   const { id } = context.params;
   const res = await axios.get(
-    `http://localhost:3333/product/${id}/description`,
+    `https://jcwd210202.purwadhikabootcamp.com/api/v1/product/${id}/description`,
   );
+  // const res = await axios.get(
+  //   `/api/v1/product/${id}/description`,
+  // );
+
   return {
     props: {
-      val: res.data.result[0],
+      val: res.data.result,
     },
   };
 }

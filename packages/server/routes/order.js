@@ -1,14 +1,15 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const fileUploader = require("../lib/uploader");
 
 const OrderController = require("../controller/orderController");
 
 router.post("/", OrderController.addOrder);
-router.get("/:id", OrderController.getOrderById);
+router.get("/:id", OrderController.getOrderByUserId);
 router.get("/:id/invoice/:no_invoice", OrderController.getOrderByInvoice);
 router.get("/", OrderController.getAllOrder);
 router.patch("/status/:id", OrderController.editOrderStatus);
+router.patch("/prescription/copy/:id", OrderController.prescriptionCopy);
 
 router.post(
   "/prescription",

@@ -23,19 +23,20 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import SideBarAdd from '../../../.././admin/componen/sidebar/sidebarAdd';
-import AdminNavBar from '../../../../admin/componen/adminNavbar/AdminNavBar';
-import AddNewproduct from '../../../../admin/componen/product/addNewproduct/addNewproduct';
+
+import SideBarAdd from '../../../../Component/Admin/sidebar/sidebarAdd';
+import AdminNavBar from '../../../../Component/Admin/adminNavbar/AdminNavBar';
+import AddNewproduct from '../../../../Component/Admin/product/addNewproduct/addNewproduct';
 
 export default function listProduct() {
   const router = useRouter();
-  const userSelector = useSelector((state) => state.auth);
+  const userSelector = useSelector((state) => state.authReducer);
 
   useEffect(() => {
     if (userSelector?.role === 'admin') {
       router.push('/admin/product/addNewproduct');
     } else {
-      router.push('/home');
+      router.push('/');
     }
   }, [userSelector?.role === 'admin']);
 

@@ -14,6 +14,9 @@ import {
   useDisclosure,
   Stack,
   AvatarBadge,
+  useToast,
+  Modal,
+  Icon,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { FiShoppingCart } from 'react-icons/fi';
@@ -23,17 +26,43 @@ import { SearchInput } from './SearchInput';
 import { useDispatch, useSelector } from 'react-redux';
 import Logo1 from '../../public/Assets/image/MedicareHorizontalLogo.png';
 import Home from '../../public/Assets/Icon/Home.png';
-import UploadRecipt from '../../public/Assets/Icon/UploadRecipt.png';
-import PaymentRecipt from '../../public/Assets/Icon/PaymentRecipt.png';
+import jsCookie from 'js-cookie';
+import Router from 'next/router';
 import NextImage from 'next/image';
-import { UploadPrescription } from '../../Component/Prescription/UploadPrescription';
+import { UploadPrescription } from '../../Component/User/Prescription/UploadPrescription';
+import SwitchForm from '../../Component/User/Authentication/SwitchForm';
+import { BsArrowRightCircle } from 'react-icons/bs';
 
 export default function Simple() {
   const dispatch = useDispatch();
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const cartSelector = useSelector((state) => state.cartReducer);
+  const authSelector = useSelector((state) => state.authReducer);
   const filter = useSelector((state) => state.filterReducer);
+
+  const {
+    isOpen: isOpenSignup,
+    onOpen: onOpenSignup,
+    onClose: onCloseSignup,
+  } = useDisclosure();
+
+  const handleLogout = () => {
+    try {
+      jsCookie.remove('auth_token');
+      dispatch({
+        type: 'AUTH_LOGOUT',
+      });
+      toast({
+        title: 'User Logout',
+        status: 'success',
+        isClosable: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -66,11 +95,9 @@ export default function Simple() {
           />
           <HStack spacing={8} alignItems={'center'}>
             <Box maxW="200px" cursor="pointer">
-              <NextImage
-                alt={'Logo Image'}
-                src={Logo1}
-                onClick={() => router.push('/home')}
-              />
+              <NextLink fontSize="bold" href="/">
+                <NextImage alt={'Logo Image'} src={Logo1} />
+              </NextLink>
             </Box>
             <HStack
               as={'nav'}
@@ -104,69 +131,93 @@ export default function Simple() {
                   Home{' '}
                 </Button>
               </NextLink>
-              <UploadPrescription />
+              {authSelector.id ? <UploadPrescription /> : <></>}
             </HStack>
           </HStack>
           <Flex alignItems={'center'} gap={6}>
             <SearchInput maxW="406px" />
+            {authSelector.id ? (
+              <>
+                <NextLink href="/cart">
+                  <IconButton
+                    bg="white"
+                    size="xl"
+                    aria-label="open menu"
+                    p="0px"
+                    _active={{ bg: 'white' }}
+                    _hover={{ bg: 'white' }}
+                    icon={
+                      <>
+                        <Avatar icon={<FiShoppingCart />} bg="white">
+                          {cartSelector.total_cart <= 0 ? (
+                            <></>
+                          ) : (
+                            <AvatarBadge
+                              boxSize="1.5rem"
+                              bg={'teal.400'}
+                              color="white"
+                              p="4px"
+                              fontSize={'0.7rem'}
+                            >
+                              {cartSelector.total_cart}
+                            </AvatarBadge>
+                          )}
+                        </Avatar>
+                      </>
+                    }
+                  />
+                </NextLink>
 
+                <Menu placement="bottom-end">
+                  <MenuButton
+                    as={Button}
+                    rounded={'full'}
+                    variant={'link'}
+                    cursor={'pointer'}
+                    size="sm"
+                  >
+                    <Avatar size={'sm'} src={authSelector.image_url} />
+                  </MenuButton>
+                  <MenuList>
+                    <NextLink fontSize="bold" href="/setting">
+                      <MenuItem>My Profile</MenuItem>
+                    </NextLink>
+                    <NextLink href="/transaction">
+                      <MenuItem>Transaaction</MenuItem>
+                    </NextLink>
+                    <MenuItem>Help&Support</MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        handleLogout();
+                      }}
+                    >
+                      Logout
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </>
+            ) : (
+              <>
+                <Button
+                  colorScheme={'teal'}
+                  variant={'outline'}
+                  px={'1.3rem'}
+                  gap={2}
+                  onClick={onOpenSignup}
+                >
+                  <Icon boxsSize="3" as={BsArrowRightCircle} /> Sign in{' '}
+                </Button>
+                <Modal
+                  isOpen={isOpenSignup}
+                  onClose={onCloseSignup}
+                  size="sm"
+                  bg="transparent"
+                >
+                  <SwitchForm />
+                </Modal>
+              </>
+            )}
             {/* Cart Icon */}
-            <NextLink href="/cart">
-              <IconButton
-                bg="white"
-                size="xl"
-                aria-label="open menu"
-                p="0px"
-                _active={{ bg: 'white' }}
-                _hover={{ bg: 'white' }}
-                icon={
-                  <>
-                    <Avatar icon={<FiShoppingCart />} bg="white">
-                      {cartSelector.total_cart <= 0 ? (
-                        <></>
-                      ) : (
-                        <AvatarBadge
-                          boxSize="1.5rem"
-                          bg={'teal.400'}
-                          color="white"
-                          p="4px"
-                          fontSize={'0.7rem'}
-                        >
-                          {cartSelector.total_cart}
-                        </AvatarBadge>
-                      )}
-                    </Avatar>
-                  </>
-                }
-              />
-            </NextLink>
-
-            <Menu placement="bottom-end">
-              <MenuButton
-                as={Button}
-                rounded={'full'}
-                variant={'link'}
-                cursor={'pointer'}
-                minW={0}
-              >
-                <Avatar
-                  size={'sm'}
-                  src={
-                    'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                  }
-                />
-              </MenuButton>
-              <MenuList>
-                <NextLink fontSize="bold" href="/setting">
-                  <MenuItem>My Profile</MenuItem>
-                </NextLink>
-                <NextLink href="/transaction">
-                  <MenuItem>Transaaction</MenuItem>
-                </NextLink>
-                <MenuItem>Help&Support</MenuItem>
-                <MenuItem>Logout</MenuItem>
-              </MenuList>
-            </Menu>
           </Flex>
         </Flex>
 

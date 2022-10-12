@@ -9,7 +9,7 @@ var debug = require("debug")("pharmacy:server");
 var http = require("http");
 const dotenv = require("dotenv");
 dotenv.config();
-
+console.log(dotenv.config());
 /**
  * Get port from environment and store in Express.
  */

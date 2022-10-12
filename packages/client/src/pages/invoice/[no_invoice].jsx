@@ -1,6 +1,5 @@
-import { Text } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
-import { InvoiceContainer } from '../../Component/Invoice/invoiceContainer';
+import { InvoiceContainer } from '../../Component/User/Invoice/invoiceContainer';
 import { Layout } from '../../layout';
 import { useRouter } from 'next/router';
 

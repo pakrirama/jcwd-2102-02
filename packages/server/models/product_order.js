@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       id_order: DataTypes.INTEGER,
       id_product: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
+      type: DataTypes.ENUM("Medicine", "Chemical Raw"),
     },
     {
       sequelize,

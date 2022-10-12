@@ -1,7 +1,8 @@
 import jsCookie from 'js-cookie';
 import { axiosInstance } from '../../lib/api';
-import auth_types from '../reducer/auth/type';
+import auth_types from '../reducers/auth/type';
 import qs from 'qs';
+import Router from 'next/router';
 
 export function userRegister(values, setSubmitting) {
   return async function (dispatch) {
@@ -19,14 +20,15 @@ export function userRegister(values, setSubmitting) {
         qs.stringify(body),
       );
 
-      const userData = res.data.result.user;
-      const token = res.data.result.token;
+      // const userData = res.data.result.user;
+      // const token = res.data.result.token;
 
-      jsCookie.set('auth_token', token);
-      dispatch({
-        type: auth_types.AUTH_LOGIN,
-        payload: userData,
-      });
+      // jsCookie.set('auth_token', token);
+      // dispatch({
+      //   type: auth_types.AUTH_LOGIN,
+      //   payload: userData,
+      // });
+      Router.push('/auth');
 
       setSubmitting(false);
     } catch (err) {

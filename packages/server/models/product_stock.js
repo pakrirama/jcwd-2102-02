@@ -4,17 +4,20 @@ module.exports = (sequelize, DataTypes) => {
   class Product_Stock extends Model {
     static associate(models) {
       Product_Stock.belongsTo(models.Product, { foreignKey: "id" });
-      Product_Stock.hasOne(models.Unit, { foreignKey: "id_unit" });
     }
   }
   Product_Stock.init(
     {
-      stock: DataTypes.INTEGER,
+      primary_stock: DataTypes.INTEGER,
+      primary_unit: DataTypes.STRING,
+      secondary_stock: DataTypes.INTEGER,
+      secondary_unit: DataTypes.STRING,
+      unit_convertion: DataTypes.INTEGER,
+      secondary_price: DataTypes.INTEGER,
       sold_qty: DataTypes.INTEGER,
       capital_price: DataTypes.INTEGER,
       selling_price: DataTypes.INTEGER,
       profit: DataTypes.INTEGER,
-      id_unit: DataTypes.INTEGER,
     },
     {
       sequelize,
