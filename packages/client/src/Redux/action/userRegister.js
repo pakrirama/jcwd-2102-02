@@ -4,7 +4,7 @@ import auth_types from '../reducers/auth/type';
 import qs from 'qs';
 import Router from 'next/router';
 
-export function userRegister(values, setSubmitting) {
+export function UserRegister(values, setSubmitting) {
   return async function (dispatch) {
     try {
       let body = {

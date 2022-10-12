@@ -20,7 +20,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { userRegister } from '../../../redux/action/userRegister';
+import { UserRegister } from '../../../redux/action/userRegister';
 
 export default function RegisterForm() {
   const [passwordView, setPasswordView] = useState(false);
@@ -76,7 +76,7 @@ export default function RegisterForm() {
     }),
     validateOnChange: false,
     onSubmit: (values) => {
-      dispatch(userRegister(values, formik.setSubmitting));
+      dispatch(UserRegister(values, formik.setSubmitting));
     },
   });
 
