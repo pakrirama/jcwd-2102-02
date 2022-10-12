@@ -20,7 +20,6 @@ import {
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import { useState } from 'react';
-import { BsArrowRightCircle } from 'react-icons/bs';
 
 export default function SwitchForm() {
   const [changeForm, setChangeFrom] = useState(true);

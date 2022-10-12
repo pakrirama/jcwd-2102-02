@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { DateFilter } from '../../DateFilter';
 import { BiReset } from 'react-icons/bi';
-import {TransactionOption} from '../../../lib/transactionFilter'
+import {TransactionOption} from '../../../lib/TransactionFilter'
 
 export const FilterTransaction = () => {
   const dispatch = useDispatch();
