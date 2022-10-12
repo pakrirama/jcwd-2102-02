@@ -9,7 +9,7 @@ const initialState = {
   render: false,
 };
 
-const transactionReducer = (state = initialState, action) => {
+const TransactionReducer = (state = initialState, action) => {
   if (action.type === 'SET_TRANSACTION_FILTER') {
     return {
       status: action.payload.status,
