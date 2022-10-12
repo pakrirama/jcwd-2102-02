@@ -3,7 +3,7 @@ import { Box, Button, Center, Flex, SimpleGrid } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import {FilterTransaction} from './FilterTransaction' 
 
-import { TransactionOption } from '../../../lib/transactionFilter'
+import { TransactionOption } from '../../../lib/TransactionFilter'
 
 export const TransactionHeader = () => {
   const dispatch = useDispatch();
