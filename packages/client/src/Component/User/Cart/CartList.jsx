@@ -1,11 +1,18 @@
-import { Box, Heading, Text, HStack, Spacer, useToast } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  Text,
+  HStack,
+  Spacer,
+  useToast,
+  Button,
+  Image,
+} from '@chakra-ui/react';
 import React from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { NumberInput } from './NumberInput';
-import NextImage from 'next/image';
 import { axiosInstance } from '../../../lib/api';
-import ItemImage from '../../../public/Assets/image/step1.png';
 
 export const CartList = ({ cartData }) => {
   const dispatch = useDispatch();
@@ -57,7 +64,7 @@ export const CartList = ({ cartData }) => {
                     borderWidth={'2px'}
                     rounded={'lg'}
                   >
-                    <NextImage src={ItemImage} />
+                    <Image src={val.Product?.img_product} />
                   </Box>
                   <Box mx="2rem">
                     <Text m="1rem" fontWeight={'bold'} fontSize="xl">

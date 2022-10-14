@@ -19,7 +19,7 @@ export const ProductDetailContainer = ({ val }) => {
           </Heading>
 
           <Stack direction={'row'} align="center">
-            <Image src="https://picsum.photos/200" w="45%" />
+            <Image src={val.Product?.img_product} w="45%" />
             <Text textAlign={'start'} p="4rem">
               {val.purpose} Lorem ipsum dolor sit amet consectetur adipisicing
               elit. Laudantium nihil quaerat fugit illo exercitationem illum

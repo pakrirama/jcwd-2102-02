@@ -95,6 +95,7 @@ export const ProductListContainer = () => {
                     price={val.Product_Stock?.selling_price}
                     key={val.id}
                     id={val.id}
+                    image={val.img_product}
                   />
                 );
               })

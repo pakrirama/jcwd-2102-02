@@ -12,6 +12,7 @@ import {
 
 import { Select } from 'chakra-react-select';
 import { useDispatch, useSelector } from 'react-redux';
+import { TransactionOption } from '../../../lib/transactionFilter';
 import { PagingList } from '../../PagingList';
 import { DateFilter } from '../../DateFilter';
 import { BiReset } from 'react-icons/bi';

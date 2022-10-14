@@ -87,7 +87,7 @@ class OrderController {
             attributes: ["id", "quantity", "type"],
             include: {
               model: Product,
-              attributes: ["id", "name", "price"],
+              attributes: ["id", "name", "price", "img_product"],
               include: {
                 model: Product_Stock,
                 attributes: ["id", "primary_stock", "primary_unit"],
@@ -168,7 +168,7 @@ class OrderController {
             attributes: ["id", "quantity", "type"],
             include: {
               model: Product,
-              attributes: ["id", "name"],
+              attributes: ["id", "name", "img_product"],
               include: {
                 model: Product_Stock,
                 attributes: ["selling_price", "secondary_price"],
@@ -245,7 +245,7 @@ class OrderController {
             attributes: ["id", "quantity", "type"],
             include: {
               model: Product,
-              attributes: ["id", "name"],
+              attributes: ["id", "name", "img_product"],
               include: {
                 model: Product_Stock,
                 attributes: ["selling_price", "secondary_price"],
