@@ -15,8 +15,8 @@ export const ProductCard = ({ name, price, id, image }) => {
     >
       <Image
         src={image}
-        w="16rem"
-        h="16rem"
+        w={{ sm: '10rem', md: '16rem', lg: '24rem' }}
+        h={{ sm: '10rem', md: '16rem', lg: '24rem' }}
         onClick={() => {
           Router.push(`product/${id}`);
         }}

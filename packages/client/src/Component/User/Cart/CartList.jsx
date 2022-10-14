@@ -53,20 +53,19 @@ export const CartList = ({ cartData }) => {
             return (
               <div key={idx}>
                 <Box
-                  display="flex"
+                  display={{ sm: 'block', md: 'flex' }}
                   p="2rem"
                   borderBottom="4px"
                   borderColor={'gray.200'}
                 >
                   <Box
-                    maxW="170px"
                     borderColor={'gray.200'}
                     borderWidth={'2px'}
                     rounded={'lg'}
                   >
-                    <Image src={val.Product?.img_product} />
+                    <Image src={val.Product?.img_product} mx="auto" />
                   </Box>
-                  <Box mx="2rem">
+                  <Box mx={{ sm: 'auto', md: '2rem' }}>
                     <Text m="1rem" fontWeight={'bold'} fontSize="xl">
                       {val.Product.name}
                     </Text>

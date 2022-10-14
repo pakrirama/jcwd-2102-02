@@ -8,9 +8,9 @@ export const ProductDetailContainer = ({ val }) => {
   return (
     <Box px={4} align="center">
       <Box
-        maxW={'1440px'}
+        maxW={'1920px'}
         borderColor="white"
-        display={{ md: 'flex' }}
+        display={{ md: 'block' }}
         p={'2.5rem'}
       >
         <Stack spacing={4}>

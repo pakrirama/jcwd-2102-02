@@ -59,7 +59,7 @@ export const TransactionList = ({ data }) => {
           return (
             <div key={idx}>
               <Box
-                maxW="1440px"
+                maxW="1920px"
                 mx="auto"
                 my="1rem"
                 p="2rem"

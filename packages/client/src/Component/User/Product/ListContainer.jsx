@@ -56,12 +56,17 @@ export const ProductListContainer = () => {
 
   return (
     <Box px={4} align="center">
-      <Box maxW={'1440px'} borderColor="white" display={{ md: 'flex' }}>
+      <Box maxW={'1920px'} borderColor="white" display={{ md: 'flex' }}>
         {/* Side Bar */}
         <FilterBar data={categoryData} />
         {/* End of Side Bar */}
         <Box>
-          <Box maxW={'15rem'} mt="2.5rem" mr={'auto'} shadow="md">
+          <Box
+            maxW={{ base: 'full', md: '15rem' }}
+            mt={{ base: 0, md: '2.5rem' }}
+            mr={'auto'}
+            shadow="md"
+          >
             <Select
               options={sortOptions}
               placeholder="Sort By..."
@@ -83,9 +88,9 @@ export const ProductListContainer = () => {
           </Box>
 
           <SimpleGrid
-            columns={{ sm: 1, md: 2, lg: 3 }}
+            columns={{ base: 2, md: 3 }}
             justifyContent={'space-between'}
-            spacing={24}
+            spacing={{ base: 2, md: 24 }}
             w="full"
             px={4}
             my="2rem"
