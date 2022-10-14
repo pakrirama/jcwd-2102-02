@@ -50,6 +50,8 @@ export const OrderCointainer = () => {
     if (authSelector.id) {
       fetchTransaction();
     }
+
+    console.log(transactionSelector);
   }, [authSelector, transactionSelector, render]);
 
   useEffect(() => {
@@ -76,7 +78,6 @@ export const OrderCointainer = () => {
 
         <Flex justify={'center'} gap="2rem" my="1rem">
           <Button
-            size={'sm'}
             colorScheme={'teal'}
             variant="outline"
             minW={'6rem'}
@@ -88,7 +89,6 @@ export const OrderCointainer = () => {
             Previous
           </Button>
           <Button
-            size={'sm'}
             colorScheme={'teal'}
             minW={'6rem'}
             isDisabled={

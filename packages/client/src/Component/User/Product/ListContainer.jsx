@@ -14,6 +14,7 @@ import { FilterBar } from './FilterBar';
 export const ProductListContainer = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState();
+  const [stateProduct, setStateProduct] = useState(0);
   const [categoryData, setCategoryData] = useState();
   const filter = useSelector((state) => state.filterReducer);
 
@@ -24,6 +25,10 @@ export const ProductListContainer = () => {
       });
       const data = res.data.result;
       setProducts(data.products);
+      setStateProduct({
+        totalProduct: res.data.totalProduct,
+        offset: data.offset,
+      });
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -105,8 +110,11 @@ export const ProductListContainer = () => {
           </SimpleGrid>
 
           {/* Pagination */}
-          <Center>
-            <PagingList />
+          <Center p="1rem">
+            <PagingList
+              totalItem={stateProduct.totalProduct}
+              offset={stateProduct.offset}
+            />
           </Center>
         </Box>
       </Box>

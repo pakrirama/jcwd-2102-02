@@ -67,6 +67,7 @@ export const TransactionList = ({ data }) => {
                 rounded="lg"
                 borderColor="gray.300"
               >
+                {val.id}
                 {/* PRESCRIPTION */}
                 {val.status == 'Prescription' ? (
                   <Flex>

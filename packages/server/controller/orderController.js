@@ -72,7 +72,7 @@ class OrderController {
     offset = parseInt(offset);
 
     try {
-      let orderData = await Order.findAll({
+      let orders = await Order.findAll({
         include: [
           {
             model: Address,
@@ -124,11 +124,13 @@ class OrderController {
           ],
         },
         order: order && orderby ? [[order, orderby]] : [["id", "DESC"]],
-        limit: limit ? parseInt(limit) : undefined,
-        offset,
+        // limit: limit ? parseInt(limit) : undefined,
+        // offset,
       });
 
       const totalOrder = await Order.count();
+      const orderData = orders.slice(offset, limit ? offset + 4 : totalOrder);
+
       return res.status(200).json({
         message: "Get Order ",
         result: orderData,
