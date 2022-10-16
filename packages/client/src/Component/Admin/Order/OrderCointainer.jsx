@@ -62,14 +62,13 @@ export const OrderCointainer = () => {
     };
   }, []);
   return (
-    <Flex maxW="1440px" mt="0.2rem" bg="#FAF5FF">
+    <Flex maxW="1920px" mt="0.2rem" bg="#FAF5FF">
       {/* <Box w="270px" border="2px" borderColor={'gray.200'} bg="white" h="90vh">
         sidebar
       </Box> */}
       <SideBar />
-
       <Box>
-        <Box m="1rem" overflow={'auto'} w="1150px" flexWrap={'wrap'}>
+        <Box m="1rem" overflow={'auto'} flexWrap={'wrap'}>
           <Heading fontSize={'20px'}>Order List</Heading>
           <OrderFilter />
           <OrderList data={dataTransaction} />
