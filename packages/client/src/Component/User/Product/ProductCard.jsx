@@ -20,7 +20,7 @@ export const ProductCard = ({ name, price, id, image }) => {
         }}
       />
       <Text fontWeight={'bold'}>{name}</Text>
-      <Text>{'Rp ' + price.toLocaleString('id-ID')}</Text>
+      <Text>{'Rp ' + price?.toLocaleString('id-ID')}</Text>
       <AddToCartButton id_product={id} />
     </Stack>
   );
