@@ -4,8 +4,8 @@ import store from '../redux/storess';
 import auth_types from '../redux/reducers/auth/type';
 
 export const axiosInstance = axios.create({
-  // baseURL: 'http://localhost:3333/api/v1/',
-  baseURL: 'https://jcwd210202api.purwadhikabootcamp.com/api/v1/',
+  baseURL: 'http://localhost:3333/api/v1/',
+  // baseURL: 'https://jcwd210202api.purwadhikabootcamp.com/api/v1/',
 });
 
 axiosInstance.interceptors.request.use((config) => {
