@@ -61,6 +61,7 @@ export const ConfirmationDialogue = ({
                 colorScheme={color2 ? color2 : 'teal'}
                 onClick={() => {
                   onClose();
+                  func && !id ? func() : null;
                   func && id ? func(id, param) : null;
                   func2 && id ? func2(id) : null;
                 }}
