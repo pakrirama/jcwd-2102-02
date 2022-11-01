@@ -15,13 +15,13 @@ export const ProductDetailContainer = ({ val }) => {
       >
         <Stack spacing={4}>
           <Heading textAlign={'start'} mb={4}>
-            {val.Product?.name}
+            {val?.Product?.name}
           </Heading>
 
           <Stack direction={'row'} align="center">
-            <Image src={val.Product?.img_product} w="45%" />
+            <Image src={val?.Product?.img_product} w="45%" />
             <Text textAlign={'start'} p="4rem">
-              {val.purpose} Lorem ipsum dolor sit amet consectetur adipisicing
+              {val?.purpose} Lorem ipsum dolor sit amet consectetur adipisicing
               elit. Laudantium nihil quaerat fugit illo exercitationem illum
               voluptate molestias possimus eum! Autem!
             </Text>
@@ -29,11 +29,11 @@ export const ProductDetailContainer = ({ val }) => {
               <Stack spacing={'2rem'} pt={'1rem'}>
                 <Text>
                   Rp.{' '}
-                  {val.Product?.Product_Stock?.selling_price?.toLocaleString(
+                  {val?.Product?.Product_Stock?.selling_price?.toLocaleString(
                     'id-ID',
                   )}
                 </Text>
-                <AddToCartButton id_product={val.Product?.id} />
+                <AddToCartButton id_product={val?.Product?.id} />
               </Stack>
             </Box>
           </Stack>
@@ -52,7 +52,7 @@ export const ProductDetailContainer = ({ val }) => {
                 Indication
               </Text>
               <Text>
-                {val.indication} Lorem ipsum dolor sit, amet consectetur
+                {val?.indication} Lorem ipsum dolor sit, amet consectetur
                 adipisicing elit. Nesciunt quaerat quam illum dicta amet veniam
                 ducimus doloribus! Hic non dolorum deleniti quibusdam rem rerum
                 cupiditate ex labore, ratione facere ducimus harum nisi minus,
@@ -67,7 +67,7 @@ export const ProductDetailContainer = ({ val }) => {
                 Compotition
               </Text>
               <Text>
-                {val.compotition} Lorem ipsum dolor sit amet consectetur
+                {val?.compotition} Lorem ipsum dolor sit amet consectetur
                 adipisicing elit. Eaque quos quibusdam blanditiis quasi eligendi
                 expedita officia, non autem nobis modi ducimus cum ea ratione
                 voluptatem, explicabo nemo, inventore voluptate! Eveniet id
@@ -81,7 +81,7 @@ export const ProductDetailContainer = ({ val }) => {
               >
                 How to use
               </Text>
-              <Text>{val.how_to_use} Lorem ipsum dolor sit amet.</Text>
+              <Text>{val?.how_to_use} Lorem ipsum dolor sit amet.</Text>
               <Text
                 fontSize={'1.2rem'}
                 fontWeight={'600'}
@@ -91,7 +91,7 @@ export const ProductDetailContainer = ({ val }) => {
                 Side effect
               </Text>
               <Text>
-                {val.side_effects} Lorem ipsum dolor sit amet consectetur,
+                {val?.side_effects} Lorem ipsum dolor sit amet consectetur,
                 adipisicing elit. Quas magni, aut fugiat sequi provident saepe
                 dolorem rerum earum voluptas totam deserunt molestias aliquam
                 debitis animi porro beatae iste quod accusamus. Pariatur
@@ -107,7 +107,7 @@ export const ProductDetailContainer = ({ val }) => {
                 Warning
               </Text>
               <Text>
-                {val.caution} Lorem ipsum dolor sit amet consectetur,
+                {val?.caution} Lorem ipsum dolor sit amet consectetur,
                 adipisicing elit. Amet, aliquid incidunt? Voluptas perspiciatis
                 minima alias? Unde animi accusantium accusamus consequatur, ipsa
                 molestias hic sequi voluptate?
@@ -121,7 +121,7 @@ export const ProductDetailContainer = ({ val }) => {
                 Contradictory
               </Text>
               <Text>
-                {val.contradictory} Lorem ipsum dolor sit amet consectetur
+                {val?.contradictory} Lorem ipsum dolor sit amet consectetur
                 adipisicing elit. Eveniet distinctio earum eum, maxime
                 voluptatem architecto.
               </Text>
@@ -133,7 +133,7 @@ export const ProductDetailContainer = ({ val }) => {
               >
                 How to save
               </Text>
-              <Text>{val.how_to_save} Lorem ipsum dolor sit amet.</Text>
+              <Text>{val?.how_to_save} Lorem ipsum dolor sit amet.</Text>
               <Text
                 fontSize={'1.2rem'}
                 fontWeight={'600'}
@@ -142,7 +142,7 @@ export const ProductDetailContainer = ({ val }) => {
               >
                 Content
               </Text>
-              <Text>{val.packaging}</Text>
+              <Text>{val?.packaging}</Text>
             </Stack>
           </Box>
         </Stack>

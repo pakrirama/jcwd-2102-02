@@ -62,7 +62,7 @@ export const ConfirmationDialogue = ({
                 onClick={() => {
                   onClose();
                   func && id ? func(id, param) : func();
-                  func2 && id ? func2(id) : func();
+                  func2 && id ? func2(id) : null;
                 }}
                 ml={3}
               >

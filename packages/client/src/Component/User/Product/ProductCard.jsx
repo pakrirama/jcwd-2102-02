@@ -1,4 +1,4 @@
-import { Button, Image, Stack, Text } from '@chakra-ui/react';
+import { Button, Image, Stack, Text, Box } from '@chakra-ui/react';
 import React from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import Router from 'next/router';
@@ -13,12 +13,14 @@ export const ProductCard = ({ name, price, id, image }) => {
       px={4}
       _hover={{ shadow: 'xl', cursor: 'pointer' }}
     >
-      <Image
-        src={image}
-        onClick={() => {
-          Router.push(`product/${id}`);
-        }}
-      />
+      <Box boxSize="xs">
+        <Image
+          src={image}
+          onClick={() => {
+            Router.push(`product/${id}`);
+          }}
+        />
+      </Box>
       <Text fontWeight={'bold'}>{name}</Text>
       <Text>{'Rp ' + price?.toLocaleString('id-ID')}</Text>
       <AddToCartButton id_product={id} />

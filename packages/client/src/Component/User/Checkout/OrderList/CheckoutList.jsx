@@ -16,12 +16,14 @@ export const ChekcoutList = ({ cartData }) => {
               cartData.map((val, idx) => {
                 return (
                   <Box key={idx}>
-                    <Image
-                      src={val.Product?.img_product}
-                      rounded={'lg'}
+                    <Box
+                      boxSize={'150px'}
                       border="2px"
+                      rounded={'lg'}
                       borderColor={'gray.200'}
-                    />
+                    >
+                      <Image src={val.Product?.img_product} />
+                    </Box>
                     <Text fontWeight={'bold'}>{val.Product.name}</Text>
                     <Text>{val.quantity} x</Text>
                     <Text>
