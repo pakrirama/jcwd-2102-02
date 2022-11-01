@@ -52,7 +52,8 @@ export const CourierList = () => {
           origin: 151,
           weight: 1000,
         },
-        { headers: { key: '0e29b3cb4f74364cf38c45d5d71ad96e' } },
+        // { headers: { key: '0e29b3cb4f74364cf38c45d5d71ad96e' } },
+        { headers: { key: 'd4be32b25402efecc8c330c471fa0b3a' } },
       );
       const rajaOngkirData = res.data.rajaongkir.results[0];
       console.log('fetch raja ongkir');

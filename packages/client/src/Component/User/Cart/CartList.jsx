@@ -62,7 +62,7 @@ export const CartList = ({ cartData }) => {
                     borderColor={'gray.200'}
                     borderWidth={'2px'}
                     rounded={'lg'}
-                    boxSize="xs"
+                    boxSize="200px"
                   >
                     <Image src={val.Product?.img_product} mx="auto" />
                   </Box>

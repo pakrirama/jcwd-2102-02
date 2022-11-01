@@ -47,13 +47,15 @@ export const OrderDetail = ({ data }) => {
                           <Td>
                             <Flex align="center" gap={6}>
                               {' '}
-                              <Image
-                                src={val.Product?.img_product}
+                              <Box
+                                boxSize={'180px'}
                                 border={'1px'}
                                 maxH="200px"
                                 borderColor="gray.400"
                                 rounded="lg"
-                              />
+                              >
+                                <Image src={val.Product?.img_product} />
+                              </Box>
                               <Text>{val.Product?.name}</Text>
                             </Flex>
                           </Td>
