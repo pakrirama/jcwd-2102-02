@@ -17,8 +17,10 @@ import {
 } from '@chakra-ui/react';
 import LinkNext from 'next/link';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { AiFillSetting } from 'react-icons/ai';
+import { FiHome } from 'react-icons/fi';
+
 
 import { IoSettingsOutline, IoLogOutOutline } from 'react-icons/io5';
 import { useRouter } from 'next/router';
@@ -30,6 +32,8 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 
 export default function AdminNavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const authSelector = useSelector((state) => state.authReducer);
+  
   const {
     isOpen: isOpenCart,
     onOpen: onOpenCart,
@@ -142,8 +146,19 @@ export default function AdminNavBar() {
                   <Icon boxSize="6" as={BiHelpCircle} />
                   <Text ml="10px">Bantuan</Text>
                 </MenuItem>
-                <MenuDivider />
-                <LinkNext href="/home">
+                
+                    {
+                      authSelector.role == 'admin'? 
+                      <LinkNext fontSize="bold" href="/">
+                      <MenuItem>
+                        <Icon boxSize="6" as={FiHome} />
+                        <Text ml="10px">Landing Page </Text>
+                      </MenuItem>
+                      </LinkNext>
+                      :<></>
+                    }
+                    <MenuDivider />
+                <LinkNext href="/">
                   <MenuItem onClick={btnlogout}>
                     <Icon boxSize="6" as={IoLogOutOutline} />
                     <Text ml="10px">Log Out</Text>

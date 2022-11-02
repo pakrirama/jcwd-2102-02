@@ -184,6 +184,13 @@ export default function Simple() {
                       <MenuItem>Transaaction</MenuItem>
                     </NextLink>
                     <MenuItem>Help&Support</MenuItem>
+                    {
+                      authSelector.role == 'admin'? 
+                      <NextLink fontSize="bold" href="/admin/dashboard">
+                      <MenuItem>Admin Dashboard</MenuItem>
+                      </NextLink>
+                      :<></>
+                    }
                     <MenuItem
                       onClick={() => {
                         handleLogout();
